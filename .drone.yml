@@ -20,7 +20,7 @@ steps:
 - name: backend
   image: python:3.6.4
   commands:
-    - pip install --no-cache-dir --trusted-host pypi.python.org pipenv
+    - pip install --trusted-host pypi.python.org pipenv
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
     - pipenv run isort --check-only --diff --recursive wagtail
