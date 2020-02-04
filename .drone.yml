@@ -16,11 +16,11 @@ steps:
   settings:
     restore: true
     mount:
-      - ~/.local/
+      - ./.cache
 - name: backend
   image: python:3.6.4
-  #environment:
-  #  PIPENV_CACHE_DIR:
+  environment:
+    PIPENV_CACHE_DIR: '/drone/src/.cache'
   commands:
     - env
     - pwd
@@ -37,7 +37,7 @@ steps:
   settings:
     rebuild: true
     mount:
-      - ~/.local/
+      - ./.cache
 volumes:
   - name: cache
     host:
