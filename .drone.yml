@@ -28,6 +28,16 @@ steps:
     - pipenv run isort --check-only --diff --recursive wagtail
     #- /bin/bash -e -c "pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'"
     - DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
+- name: frontend
+  image: node:8.11.3
+  commands:
+    - npm install --no-save
+    - npm run lint:js
+    - npm run lint:css
+    - npm run test:unit:coverage -- --runInBand
+    - npm rebuild node-sass
+    - npm run dist
+
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
@@ -41,3 +51,5 @@ volumes:
   - name: cache
     host:
       path: /tmp/cache
+
+
