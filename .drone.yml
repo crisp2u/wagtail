@@ -26,7 +26,8 @@ steps:
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
     - pipenv run isort --check-only --diff --recursive wagtail
-    - /bin/bash -e -c "pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'"
+    #- /bin/bash -e -c "pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'"
+    - DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
