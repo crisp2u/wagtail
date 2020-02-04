@@ -24,7 +24,7 @@ steps:
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
     - pipenv run isort --check-only --diff --recursive wagtail
-    - ls -la .
+    - ls -la ~/.local/
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
