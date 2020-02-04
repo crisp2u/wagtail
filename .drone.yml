@@ -8,6 +8,15 @@ platform:
   arch: amd64
 
 steps:
+- name: restore-cache
+  image: drillster/drone-volume-cache
+  volumes:
+  - name: cache
+    path: /cache
+  settings:
+    restore: true
+    mount:
+      - ~/.local/
 - name: backend
   image: python:3.6.4
   commands:
@@ -15,7 +24,7 @@ steps:
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
     - pipenv run isort --check-only --diff --recursive wagtail
-
+    - ls -la .
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
@@ -24,7 +33,7 @@ steps:
   settings:
     rebuild: true
     mount:
-      - .local/
+      - ~/.local/
 volumes:
   - name: cache
     host:
