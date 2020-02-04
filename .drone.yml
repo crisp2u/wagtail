@@ -14,3 +14,4 @@ steps:
     - pip install --no-cache-dir --trusted-host pypi.python.org pipenv
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
+    - pipenv run isort --check-only --diff --recursive wagtail
