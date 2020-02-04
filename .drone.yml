@@ -12,6 +12,5 @@ steps:
   image: python:3.6.4
   commands:
     - pip install --no-cache-dir --trusted-host pypi.python.org pipenv
-    - pipenv install --system --deploy --dev
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
