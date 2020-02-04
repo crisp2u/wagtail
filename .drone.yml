@@ -22,13 +22,11 @@ steps:
   environment:
     PIPENV_CACHE_DIR: '/drone/src/.cache'
   commands:
-    - env
-    - pwd
     - pip install --trusted-host pypi.python.org pipenv
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
     - pipenv run isort --check-only --diff --recursive wagtail
-    - ls -la .
+    - /bin/bash -e -c "pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'"
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
