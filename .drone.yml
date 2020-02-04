@@ -19,12 +19,16 @@ steps:
       - ~/.local/
 - name: backend
   image: python:3.6.4
+  #environment:
+  #  PIPENV_CACHE_DIR:
   commands:
+    - env
+    - pwd
     - pip install --trusted-host pypi.python.org pipenv
     - pipenv install -e .[testing]
     - pipenv run flake8 wagtail
     - pipenv run isort --check-only --diff --recursive wagtail
-    - ls -la ~/.local/
+    - ls -la .
 - name: rebuild-cache
   image: drillster/drone-volume-cache
   volumes:
